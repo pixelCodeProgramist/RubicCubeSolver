@@ -55,39 +55,39 @@ namespace RubicCube.Business
             });*/
 
             this.sides[Color.ORANGE] = new Side(new List<Color[]>{
-                new Color[]{ Color.BLUE, Color.ORANGE, Color.YELLOW },
-                new Color[]{ Color.GREEN, Color.ORANGE, Color.GREEN },
-                new Color[]{ Color.WHITE, Color.YELLOW, Color.GREEN }
+                new Color[]{ Color.ORANGE, Color.BLUE, Color.GREEN },
+                new Color[]{ Color.GREEN, Color.ORANGE, Color.BLUE },
+                new Color[]{ Color.GREEN, Color.YELLOW, Color.YELLOW }
             });
 
             this.sides[Color.GREEN] = new Side(new List<Color[]>{
-                new Color[]{ Color.RED, Color.GREEN, Color.WHITE },
-                new Color[]{ Color.ORANGE, Color.GREEN, Color.RED },
-                new Color[]{ Color.ORANGE, Color.BLUE, Color.BLUE }
+                new Color[]{ Color.RED, Color.YELLOW, Color.WHITE },
+                new Color[]{ Color.ORANGE, Color.GREEN, Color.ORANGE },
+                new Color[]{ Color.RED, Color.RED, Color.ORANGE }
             });
 
             this.sides[Color.WHITE] = new Side(new List<Color[]>{
-                new Color[]{ Color.RED, Color.RED, Color.WHITE },
-                new Color[]{ Color.WHITE, Color.WHITE, Color.WHITE },
-                new Color[]{ Color.GREEN, Color.ORANGE, Color.RED }
+                new Color[]{ Color.YELLOW, Color.YELLOW, Color.ORANGE },
+                new Color[]{ Color.WHITE, Color.WHITE, Color.RED },
+                new Color[]{ Color.WHITE, Color.BLUE, Color.GREEN }
             });
 
             this.sides[Color.YELLOW] = new Side(new List<Color[]>{
-                new Color[]{ Color.WHITE, Color.YELLOW, Color.YELLOW },
+                new Color[]{ Color.BLUE, Color.GREEN, Color.BLUE },
                 new Color[]{ Color.GREEN, Color.YELLOW, Color.RED },
-                new Color[]{ Color.ORANGE, Color.RED, Color.GREEN }
+                new Color[]{ Color.RED, Color.YELLOW, Color.RED }
             });
 
             this.sides[Color.RED] = new Side(new List<Color[]>{
-                new Color[]{ Color.GREEN, Color.GREEN, Color.RED },
-                new Color[]{ Color.BLUE, Color.RED, Color.BLUE },
-                new Color[]{ Color.ORANGE, Color.BLUE, Color.YELLOW }
+                new Color[]{ Color.ORANGE, Color.BLUE, Color.BLUE },
+                new Color[]{ Color.WHITE, Color.RED, Color.ORANGE },
+                new Color[]{ Color.BLUE, Color.WHITE, Color.WHITE }
             });
 
             this.sides[Color.BLUE] = new Side(new List<Color[]>{
-                new Color[]{ Color.BLUE, Color.BLUE, Color.YELLOW },
-                new Color[]{ Color.ORANGE, Color.BLUE, Color.RED },
-                new Color[]{ Color.ORANGE, Color.WHITE, Color.BLUE }
+                new Color[]{ Color.YELLOW, Color.ORANGE, Color.GREEN },
+                new Color[]{ Color.GREEN, Color.BLUE, Color.WHITE },
+                new Color[]{ Color.BLUE, Color.RED, Color.YELLOW }
             });
         }
 

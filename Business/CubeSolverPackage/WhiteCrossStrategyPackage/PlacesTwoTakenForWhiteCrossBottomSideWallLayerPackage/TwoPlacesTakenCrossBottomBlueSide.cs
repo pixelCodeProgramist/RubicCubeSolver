@@ -22,7 +22,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlacesT
 
             Movement movement = new Movement(MovementType.B_PRIM, rubicCubeSides);
 
-            comleteMovementForSetTwoInOneLineWhiteSquare(colorOnYellowSide, centroidColorOfWhiteSquare, rubicCubeSides, isStraightLine);
+            comleteSettingSquare(colorOnYellowSide, centroidColorOfWhiteSquare, rubicCubeSides, isStraightLine);
         }
     }
 }

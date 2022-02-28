@@ -12,9 +12,10 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
         public WhiteCrossFromYellowSideCreator(Dictionary<Color, Side> rubicCubeSides)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.create();
         }
 
-        public void create()
+        private void create()
         {
             
             while (true)

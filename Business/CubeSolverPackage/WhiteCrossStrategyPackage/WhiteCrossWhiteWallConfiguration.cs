@@ -70,37 +70,41 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
                     this.moveToCorrectCentroidOneWhiteSquareOnWall();
                 }
 
-                //Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE
-                for (int i = 0; i < this.crossWhiteSideSquareColors.Count; i++)
+                if(numberOfWhiteSquare > 1)
                 {
-                    if (this.crossWhiteSideSquareColors[i] != Color.WHITE) 
-                        continue;
-                    
-                    MovementType move = MovementType.NONE;
-                    Color centroidColor = this.order[i];
-                    Color onOtherSideColor = this.rubicCubeSides[centroidColor].fields[0][1];
-
-                    if (centroidColor == onOtherSideColor) continue;
-
-                    if (centroidColor == Color.ORANGE) move = MovementType.L;
-                    if (centroidColor == Color.GREEN) move = MovementType.F;
-                    if (centroidColor == Color.RED) move = MovementType.R;
-                    if (centroidColor == Color.BLUE) move = MovementType.B;
-
-                    while(true)
+                    //Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE
+                    for (int i = 0; i < this.crossWhiteSideSquareColors.Count; i++)
                     {
-                        Movement movement = new Movement(move, rubicCubeSides);
-                        this.updateCrossWhiteSideSquareColors();
-                        int currentNumberOfWhiteSquaresOnWhiteWall = this.crossWhiteSideSquareColors.FindAll(e => e == Color.WHITE).Count;
-                        if (currentNumberOfWhiteSquaresOnWhiteWall < numberOfWhiteSquare)
+                        if (this.crossWhiteSideSquareColors[i] != Color.WHITE)
+                            continue;
+
+                        MovementType move = MovementType.NONE;
+                        Color centroidColor = this.order[i];
+                        Color onOtherSideColor = this.rubicCubeSides[centroidColor].fields[0][1];
+
+                        if (centroidColor == onOtherSideColor) continue;
+
+                        if (centroidColor == Color.ORANGE) move = MovementType.L;
+                        if (centroidColor == Color.GREEN) move = MovementType.F;
+                        if (centroidColor == Color.RED) move = MovementType.R;
+                        if (centroidColor == Color.BLUE) move = MovementType.B;
+
+                        while (true)
                         {
-                            numberOfWhiteSquare = currentNumberOfWhiteSquaresOnWhiteWall;
-                            break;
+                            Movement movement = new Movement(move, rubicCubeSides);
+                            this.updateCrossWhiteSideSquareColors();
+                            int currentNumberOfWhiteSquaresOnWhiteWall = this.crossWhiteSideSquareColors.FindAll(e => e == Color.WHITE).Count;
+                            if (currentNumberOfWhiteSquaresOnWhiteWall < numberOfWhiteSquare)
+                            {
+                                numberOfWhiteSquare = currentNumberOfWhiteSquaresOnWhiteWall;
+                                break;
+                            }
                         }
+
+
                     }
-
-
                 }
+                
             }
 
         }

@@ -14,14 +14,35 @@ namespace RubicCube.Business.CubeSolverPackage
         public void solve(Dictionary<Color, Side> rubicCubeSides)
         {
             this.rubicCubeSides = rubicCubeSides;
+            Console.WriteLine("Initial");
+            Logger logger = new Logger(rubicCubeSides);
+            logger.display();
+            
             WhiteCrossWhiteWallConfiguration whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides);
-            WhiteCrossFromYellowSideCreator whiteCrossFromYellowSideCreator = new WhiteCrossFromYellowSideCreator(rubicCubeSides);
-            whiteCrossFromYellowSideCreator.create();
-            WhiteCrossFromBottomSideWallLayerCreator whiteCrossFromBottomSideWallLayerCreator = 
-                new WhiteCrossFromBottomSideWallLayerCreator(rubicCubeSides); 
+
+            while (true)
+            {
+                WhiteCrossFromYellowSideCreator whiteCrossFromYellowSideCreator = new WhiteCrossFromYellowSideCreator(rubicCubeSides);
+
+                WhiteCrossFromBottomSideWallLayerCreator whiteCrossFromBottomSideWallLayerCreator =
+                    new WhiteCrossFromBottomSideWallLayerCreator(rubicCubeSides);
+
+                WhiteCrossFromMiddleSideWallLayerCreator whiteCrossFromMiddleSideWallLayerCreator =
+                    new WhiteCrossFromMiddleSideWallLayerCreator(rubicCubeSides);
+
+                if (
+                     (rubicCubeSides[Color.WHITE].fields[0][1] == Color.WHITE) &&
+                     (rubicCubeSides[Color.WHITE].fields[1][0] == Color.WHITE) &&
+                     (rubicCubeSides[Color.WHITE].fields[1][2] == Color.WHITE) &&
+                     (rubicCubeSides[Color.WHITE].fields[2][1] == Color.WHITE)
+                    ) break;
+            }
+            
+
+            
         }
 
-       
+
     }
 
 

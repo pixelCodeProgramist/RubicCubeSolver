@@ -6,15 +6,21 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
     class OnePlaceTakenCrossBottomBlueSide : OnePlaceTakenCrossBottomAbstractClass
     {
         private Dictionary<Color, Side> rubicCubeSides;
-
-        public OnePlaceTakenCrossBottomBlueSide(Dictionary<Color, Side> rubicCubeSides)
+        private Color centroidColor;
+        public OnePlaceTakenCrossBottomBlueSide(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.centroidColor = mainSideColor;
         }
 
         public override void create()
         {
-            Movement movement
+            rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(rubicCubeSides, centroidColor);
+
+            Movement movement = new Movement(MovementType.B_PRIM, rubicCubeSides);
+            movement = new Movement(MovementType.U_PRIM, rubicCubeSides);
+            movement = new Movement(MovementType.L, rubicCubeSides);
+            movement = new Movement(MovementType.U, rubicCubeSides);
         }
     }
 }

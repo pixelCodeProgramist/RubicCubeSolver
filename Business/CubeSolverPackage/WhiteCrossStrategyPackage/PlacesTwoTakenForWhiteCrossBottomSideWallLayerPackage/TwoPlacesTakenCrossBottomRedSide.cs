@@ -18,16 +18,16 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlacesT
 
         public override void create()
         {
-            if (isStraightLine) setTwoInOneLineWhiteSquare(this.centroidColorOfWhiteSquare);
+           setSquares(this.centroidColorOfWhiteSquare);
         }
 
-        private void setTwoInOneLineWhiteSquare(Color centroidColorOfWhiteSquare)
+        private void setSquares(Color centroidColorOfWhiteSquare)
         {
             Color colorOnYellowSide = getColorFromYellowSide(centroidColorOfWhiteSquare, rubicCubeSides);
 
             Movement movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
 
-            comleteMovementForSetTwoInOneLineWhiteSquare(colorOnYellowSide, centroidColorOfWhiteSquare, rubicCubeSides, isStraightLine);
+            comleteSettingSquare(colorOnYellowSide, centroidColorOfWhiteSquare, rubicCubeSides, isStraightLine);
 
         }
     }

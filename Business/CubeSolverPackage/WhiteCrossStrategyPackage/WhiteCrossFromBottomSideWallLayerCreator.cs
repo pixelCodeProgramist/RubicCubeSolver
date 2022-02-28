@@ -17,7 +17,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             this.rubicCubeSides = rubicCubeSides;
             Color centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
             this.setBottomSquareRelativeToFreeRow(centroidColorOfWhiteSquare);
-
+            centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
             List<Color> currentSquaresOnWhiteSide = getSquaresOnCross();
             int numberOfTakenPlaces = currentSquaresOnWhiteSide.FindAll(e => e == Color.WHITE).Count;
             if (numberOfTakenPlaces == 0)
@@ -106,7 +106,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
                 {
                     movement = new Movement(MovementType.D, rubicCubeSides);
                 }
-
+               
                 centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
             }
         }

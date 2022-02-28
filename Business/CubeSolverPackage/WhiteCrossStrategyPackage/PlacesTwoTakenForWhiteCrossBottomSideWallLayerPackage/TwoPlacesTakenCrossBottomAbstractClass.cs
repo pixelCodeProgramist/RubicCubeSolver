@@ -35,7 +35,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlacesT
             return color;
         }
 
-        protected void comleteMovementForSetTwoInOneLineWhiteSquare(Color colorOnYellowSide, Color centroidColorOfWhiteSquare, Dictionary<Color, Side> rubicCubeSides, bool isStraightLine)
+        protected void comleteSettingSquare(Color colorOnYellowSide, Color centroidColorOfWhiteSquare, Dictionary<Color, Side> rubicCubeSides, bool isStraightLine)
         {
             MovementType up = getMovementType(centroidColorOfWhiteSquare);
             if (isStraightLine)
