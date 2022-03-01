@@ -36,9 +36,9 @@ namespace RubicCube.Business.MovementUpdaterPackage
                 rubicCubeSides[Color.WHITE].fields[1][2] = copyBlueSide.fields[1][0];
                 rubicCubeSides[Color.WHITE].fields[2][2] = copyBlueSide.fields[0][0];
 
-                rubicCubeSides[Color.BLUE].fields[0][0] = copyYellowSide.fields[0][2];
+                rubicCubeSides[Color.BLUE].fields[0][0] = copyYellowSide.fields[2][2];
                 rubicCubeSides[Color.BLUE].fields[1][0] = copyYellowSide.fields[1][2];
-                rubicCubeSides[Color.BLUE].fields[2][0] = copyYellowSide.fields[2][2];
+                rubicCubeSides[Color.BLUE].fields[2][0] = copyYellowSide.fields[0][2];
 
                 rubicCubeSides[Color.RED].fields[0][0] = copyRedSide.fields[0][2];
                 rubicCubeSides[Color.RED].fields[0][1] = copyRedSide.fields[1][2];

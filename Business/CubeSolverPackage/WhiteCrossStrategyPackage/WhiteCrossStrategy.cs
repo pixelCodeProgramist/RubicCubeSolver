@@ -30,6 +30,9 @@ namespace RubicCube.Business.CubeSolverPackage
                 WhiteCrossFromMiddleSideWallLayerCreator whiteCrossFromMiddleSideWallLayerCreator =
                     new WhiteCrossFromMiddleSideWallLayerCreator(rubicCubeSides);
 
+                WhiteCrossFromThirdSideWallLayerCreator thirdSideWallLayerCreator = 
+                    new WhiteCrossFromThirdSideWallLayerCreator(rubicCubeSides);
+
                 if (
                      (rubicCubeSides[Color.WHITE].fields[0][1] == Color.WHITE) &&
                      (rubicCubeSides[Color.WHITE].fields[1][0] == Color.WHITE) &&

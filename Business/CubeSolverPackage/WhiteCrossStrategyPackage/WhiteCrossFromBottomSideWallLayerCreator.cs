@@ -54,7 +54,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
                        placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, false);
                 }
 
-                twoPlacesCrossBottomImpl.create();
+                if(twoPlacesCrossBottomImpl != null) twoPlacesCrossBottomImpl.create();
             }
         }
 
