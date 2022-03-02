@@ -55,7 +55,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 }
                 else
                 {
-                    whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.ORANGE, rubicCubeSides);
+                    whiteCornerMovementImpl = whiteCornerMovementFactory.create(currentSiteColor1, rubicCubeSides);
                 }
 
                 whiteCornerMovementImpl.move();
@@ -185,6 +185,83 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 whiteCornerMovementImpl.move();
             }
 
+            removeWrongWhiteCorner();
+
+        }
+
+        private void removeWrongWhiteCorner()
+        {
+            while (true)
+            {
+                Color color1 = rubicCubeSides[Color.WHITE].fields[0][0];
+                Color color2 = rubicCubeSides[Color.ORANGE].fields[0][0];
+                Color color3 = rubicCubeSides[Color.BLUE].fields[0][2];
+
+                bool isCorrectWhiteOrangeBlueCorner =
+                    isInColor(color1, Color.WHITE, Color.ORANGE, Color.BLUE) &&
+                    isInColor(color2, Color.WHITE, Color.ORANGE, Color.BLUE) &&
+                    isInColor(color3, Color.WHITE, Color.ORANGE, Color.BLUE) || !isWhiteSquare(color1, color2, color3);
+
+                if (isCorrectWhiteOrangeBlueCorner) break;
+
+                Movement movement = new Movement(MovementType.L_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.L, rubicCubeSides);
+            }
+
+            while (true)
+            {
+                Color color1 = rubicCubeSides[Color.WHITE].fields[0][2];
+                Color color2 = rubicCubeSides[Color.BLUE].fields[0][0];
+                Color color3 = rubicCubeSides[Color.RED].fields[0][2];
+
+                bool isCorrectWhiteBlueRedCorner =
+                    isInColor(color1, Color.WHITE, Color.BLUE, Color.RED) &&
+                    isInColor(color2, Color.WHITE, Color.BLUE, Color.RED) &&
+                    isInColor(color3, Color.WHITE, Color.BLUE, Color.RED) || !isWhiteSquare(color1, color2, color3);
+
+                if (isCorrectWhiteBlueRedCorner) break;
+
+                Movement movement = new Movement(MovementType.B_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.B, rubicCubeSides);
+            }
+
+            while (true)
+            {
+                Color color1 = rubicCubeSides[Color.WHITE].fields[2][0];
+                Color color2 = rubicCubeSides[Color.GREEN].fields[0][0];
+                Color color3 = rubicCubeSides[Color.ORANGE].fields[0][2];
+
+                bool isCorrectWhiteGreenOrangeCorner =
+                    isInColor(color1, Color.WHITE, Color.GREEN, Color.ORANGE) &&
+                    isInColor(color2, Color.WHITE, Color.GREEN, Color.ORANGE) &&
+                    isInColor(color3, Color.WHITE, Color.GREEN, Color.ORANGE) || !isWhiteSquare(color1, color2, color3);
+
+                if (isCorrectWhiteGreenOrangeCorner) break;
+
+                Movement movement = new Movement(MovementType.F_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.F, rubicCubeSides);
+            }
+
+            while (true)
+            {
+                Color color1 = rubicCubeSides[Color.WHITE].fields[2][2];
+                Color color2 = rubicCubeSides[Color.RED].fields[0][0];
+                Color color3 = rubicCubeSides[Color.GREEN].fields[0][2];
+
+                bool isCorrectWhiteRedGreenCorner =
+                    isInColor(color1, Color.WHITE, Color.RED, Color.GREEN) &&
+                    isInColor(color2, Color.WHITE, Color.RED, Color.GREEN) &&
+                    isInColor(color3, Color.WHITE, Color.RED, Color.GREEN) || !isWhiteSquare(color1, color2, color3);
+
+                if (isCorrectWhiteRedGreenCorner) break;
+
+                Movement movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                movement = new Movement(MovementType.R, rubicCubeSides);
+            }
         }
 
         public void addColorsSquareToList(Color[] squareColor, List<Color> list)

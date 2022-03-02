@@ -1,5 +1,8 @@
 ﻿using RubicCube.Business;
 using RubicCube.Business.CubeSolverPackage;
+using RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage;
+using RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowCrossMiddleSquarePackage;
+using RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowCrossPackage;
 using RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage;
 using RubicCube.Models;
 using System;
@@ -17,6 +20,12 @@ namespace RubicCube
             ICubeSolverStrategy cubeSolverStrategy = new WhiteCrossStrategy();
             cubeSolverStrategy.solve(copySides);
             cubeSolverStrategy = new WhiteCornerStrategy();
+            cubeSolverStrategy.solve(copySides);
+            cubeSolverStrategy = new SecondLayerStrategy();
+            cubeSolverStrategy.solve(copySides);
+            cubeSolverStrategy = new YellowCrossStrategy();
+            cubeSolverStrategy.solve(copySides);
+            cubeSolverStrategy = new YellowCrossMiddleSquareStrategy();
             cubeSolverStrategy.solve(copySides);
         }
         
