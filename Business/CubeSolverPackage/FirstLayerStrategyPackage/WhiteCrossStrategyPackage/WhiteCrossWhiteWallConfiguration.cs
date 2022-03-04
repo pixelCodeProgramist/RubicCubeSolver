@@ -16,8 +16,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
             this.rubicCubeSides = rubicCubeSides;
             this.steps = steps;
             this.updateCrossWhiteSideSquareColors();
-            this.moveWrongWhiteSquare();
-            
+            this.moveWrongWhiteSquareFromWhiteSide();
         }
 
         private void updateCrossWhiteSideSquareColors()
@@ -65,7 +64,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
             }
         }
 
-        private void moveWrongWhiteSquare()
+        private void moveWrongWhiteSquareFromWhiteSide()
         {
             int numberOfWhiteSquare = this.crossWhiteSideSquareColors.FindAll(e => e == Color.WHITE).Count;
             if (numberOfWhiteSquare > 0)

@@ -36,6 +36,7 @@ namespace RubicCube.Business
             cubeSolverStrategy.solve(sides, steps);
             cubeSolverStrategy = new YellowCornerPermutationStrategy();
             cubeSolverStrategy.solve(sides, steps);
+            Console.WriteLine();
         }
     }
 }

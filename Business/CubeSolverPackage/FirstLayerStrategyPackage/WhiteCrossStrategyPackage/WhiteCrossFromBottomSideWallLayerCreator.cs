@@ -10,6 +10,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
 {
     class WhiteCrossFromBottomSideWallLayerCreator
     {
+        private List<Color> order = new List<Color> { Color.GREEN, Color.RED, Color.BLUE, Color.ORANGE };
         private Dictionary<Color, Side> rubicCubeSides;
         private List<Step> steps;
         public WhiteCrossFromBottomSideWallLayerCreator(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
@@ -17,8 +18,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             this.rubicCubeSides = rubicCubeSides;
             this.steps = steps;
             Color centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
-            this.setBottomSquareRelativeToFreeRow(centroidColorOfWhiteSquare);
-            centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
+            this.setBottomSquareRelativeToFreeRow(ref centroidColorOfWhiteSquare);
             List<Color> currentSquaresOnWhiteSide = getSquaresOnCross();
             int numberOfTakenPlaces = currentSquaresOnWhiteSide.FindAll(e => e == Color.WHITE).Count;
             if (numberOfTakenPlaces == 0)
@@ -89,28 +89,31 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
         }
     
 
-    public void setBottomSquareRelativeToFreeRow(Color centroidColorOfWhiteSquare)
+    public void setBottomSquareRelativeToFreeRow(ref Color centroidColorOfWhiteSquare)
         {
-            List<Color> order = new List<Color> { Color.GREEN, Color.RED, Color.BLUE, Color.ORANGE };
             while (true)
             {
+                Color centroidColorOfWhiteSquareCopy = centroidColorOfWhiteSquare;
                 if (this.isNotTakenWhiteWallByWhiteSquareOnCross(centroidColorOfWhiteSquare)) break;
-                int indexOfPrevCentroid = order.FindIndex(color => color == centroidColorOfWhiteSquare) - 1;
+                int indexOfPrevCentroid = order.FindIndex(color => color == centroidColorOfWhiteSquareCopy) - 1;
                 if (indexOfPrevCentroid < 0) indexOfPrevCentroid = order.Count - 1;
                 Movement movement = null;
                 if (this.isNotTakenWhiteWallByWhiteSquareOnCross(order[indexOfPrevCentroid]))
                 {
                     movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
                     steps.Add(new Step(movement, rubicCubeSides));
+                    centroidColorOfWhiteSquare = order[indexOfPrevCentroid];
                     break;
                 }
                 else
                 {
                     movement = new Movement(MovementType.D, rubicCubeSides);
                     steps.Add(new Step(movement, rubicCubeSides));
+                    int indexOfNextCentroid = ((order.FindIndex(color => color == centroidColorOfWhiteSquareCopy) + 1) % order.Count);
+                    centroidColorOfWhiteSquare = order[indexOfNextCentroid];
                 }
                
-                centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
+                
             }
         }
 

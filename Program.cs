@@ -11,7 +11,6 @@ namespace RubicCube
         {
             LayerByLayerMethod layerByLayerMethod = new LayerByLayerMethod();
             layerByLayerMethod.solve();
-           
         }
         
         

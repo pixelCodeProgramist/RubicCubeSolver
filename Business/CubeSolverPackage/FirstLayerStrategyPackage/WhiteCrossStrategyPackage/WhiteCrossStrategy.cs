@@ -23,6 +23,9 @@ namespace RubicCube.Business.CubeSolverPackage
             {
                 WhiteCrossFromYellowSideCreator whiteCrossFromYellowSideCreator = new WhiteCrossFromYellowSideCreator(rubicCubeSides, steps);
 
+                WhiteCrossFromMiddleSideWallNonWhiteAndYellowCreator whiteCrossFromMiddleSideWallNonWhiteAndYellow =
+                    new WhiteCrossFromMiddleSideWallNonWhiteAndYellowCreator(rubicCubeSides, steps);
+
                 WhiteCrossFromBottomSideWallLayerCreator whiteCrossFromBottomSideWallLayerCreator =
                     new WhiteCrossFromBottomSideWallLayerCreator(rubicCubeSides, steps);
 
