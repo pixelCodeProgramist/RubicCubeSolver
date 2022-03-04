@@ -9,7 +9,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
     {
         public abstract void create();
 
-        protected void rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(Dictionary<Color, Side> rubicCubeSides, Color centroidColor)
+        protected void rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(Dictionary<Color, Side> rubicCubeSides, Color centroidColor, List<Step> steps)
         {
             Color squareYellowSideColor = getColorSquareFromYellowSide(centroidColor, rubicCubeSides);
 
@@ -25,11 +25,13 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
                     if (squareYellowSideColor == prevCentroidColor)
                     {
                         Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
                         break;
                     }
                     else
                     {
                         Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
                     }
 
                 }

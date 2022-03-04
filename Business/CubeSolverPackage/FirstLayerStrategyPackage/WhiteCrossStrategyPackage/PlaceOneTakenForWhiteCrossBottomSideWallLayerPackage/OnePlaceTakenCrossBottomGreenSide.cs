@@ -7,19 +7,25 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
     {
         private Dictionary<Color, Side> rubicCubeSides;
         private Color centroidColor;
-        public OnePlaceTakenCrossBottomGreenSide(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor)
+        private List<Step> steps;
+        public OnePlaceTakenCrossBottomGreenSide(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
             this.centroidColor = mainSideColor;
+            this.steps = steps;
         }
 
         public override void create()
         {
-            rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(rubicCubeSides, centroidColor);
+            rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(rubicCubeSides, centroidColor, steps);
             Movement movement = new Movement(MovementType.F_PRIM, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.U_PRIM, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.R, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.U, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
         }
     }
 }

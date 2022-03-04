@@ -9,17 +9,18 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage.PlacesEm
     class EmptyPlacesCrossBottomOrangeSide : EmptyPlacesCrossBottomAbstractClass
     {
         private Dictionary<Color, Side> rubicCubeSides;
-
-        public EmptyPlacesCrossBottomOrangeSide(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public EmptyPlacesCrossBottomOrangeSide(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
         }
 
         public override void create()
         {
             Movement movement = new Movement(MovementType.L_PRIM, this.rubicCubeSides);
             movement = new Movement(MovementType.F, this.rubicCubeSides);
-            rotateWhiteSideToOtherCentroids(rubicCubeSides);
+            rotateWhiteSideToOtherCentroids(rubicCubeSides, steps);
         }
     }
 }

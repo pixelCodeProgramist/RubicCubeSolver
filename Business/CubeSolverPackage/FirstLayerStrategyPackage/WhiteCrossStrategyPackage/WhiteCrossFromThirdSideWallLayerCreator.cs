@@ -8,10 +8,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
     class WhiteCrossFromThirdSideWallLayerCreator
     {
         Dictionary<Color, Side> rubicCubeSides;
-
-        public WhiteCrossFromThirdSideWallLayerCreator(Dictionary<Color, Side> rubicCubeSides)
+        List<Step> steps;
+        public WhiteCrossFromThirdSideWallLayerCreator(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             this.create();
         }
 
@@ -25,25 +26,33 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
             if(isWhiteOnBlueSide)
             {
                 Movement movement = new Movement(MovementType.B, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.B, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             if (isWhiteOnOrangeSide)
             {
                 Movement movement = new Movement(MovementType.L, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.L, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             if (isWhiteOnRedSide)
             {
                 Movement movement = new Movement(MovementType.R, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.R, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
-            if (isWhiteOnBlueSide)
+            if (isWhiteOnGreenSide)
             {
-                Movement movement = new Movement(MovementType.R, rubicCubeSides);
-                movement = new Movement(MovementType.R, rubicCubeSides);
+                Movement movement = new Movement(MovementType.F, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
+                movement = new Movement(MovementType.F, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
         }

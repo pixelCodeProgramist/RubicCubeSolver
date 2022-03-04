@@ -7,22 +7,22 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
 {
     class OnePlaceTakenCrossBottomFactory
     {
-        public OnePlaceTakenCrossBottomAbstractClass createMovementUpdater(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor)
+        public OnePlaceTakenCrossBottomAbstractClass createMovementUpdater(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor, List<Step> steps)
         {
             OnePlaceTakenCrossBottomAbstractClass onePlaceTakenCrossBottomAbstractClass = null;
             switch (mainSideColor)
             {
                 case Color.GREEN:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomGreenSide(rubicCubeSides, mainSideColor);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomGreenSide(rubicCubeSides, mainSideColor, steps);
                     break;
                 case Color.RED:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomRedSide(rubicCubeSides, mainSideColor);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomRedSide(rubicCubeSides, mainSideColor, steps);
                     break;
                 case Color.BLUE:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomBlueSide(rubicCubeSides, mainSideColor);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomBlueSide(rubicCubeSides, mainSideColor, steps);
                     break;
                 case Color.ORANGE:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomOrangeSide(rubicCubeSides, mainSideColor);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomOrangeSide(rubicCubeSides, mainSideColor, steps);
                     break;
                 default:
                     break;

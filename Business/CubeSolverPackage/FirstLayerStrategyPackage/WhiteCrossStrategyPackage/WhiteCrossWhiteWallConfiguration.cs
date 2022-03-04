@@ -10,11 +10,14 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
         private Dictionary<Color, Side> rubicCubeSides;
         private List<Color> crossWhiteSideSquareColors;
         private readonly List<Color> order = new List<Color>() { Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE };
-        public WhiteCrossWhiteWallConfiguration(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public WhiteCrossWhiteWallConfiguration(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             this.updateCrossWhiteSideSquareColors();
             this.moveWrongWhiteSquare();
+            
         }
 
         private void updateCrossWhiteSideSquareColors()
@@ -50,11 +53,13 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
                 if (prevCentroidColor == otherSideColor)
                 {
                     movement = new Movement(MovementType.U, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                     break;
                 }
                 else
                 {
                     movement = new Movement(MovementType.U_PRIM, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                     this.updateCrossWhiteSideSquareColors();
                 }
             }
@@ -92,6 +97,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
                         while (true)
                         {
                             Movement movement = new Movement(move, rubicCubeSides);
+                            steps.Add(new Step(movement, rubicCubeSides));
                             this.updateCrossWhiteSideSquareColors();
                             int currentNumberOfWhiteSquaresOnWhiteWall = this.crossWhiteSideSquareColors.FindAll(e => e == Color.WHITE).Count;
                             if (currentNumberOfWhiteSquaresOnWhiteWall < numberOfWhiteSquare)

@@ -11,10 +11,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
     class WhiteCrossFromBottomSideWallLayerCreator
     {
         private Dictionary<Color, Side> rubicCubeSides;
-       
-        public WhiteCrossFromBottomSideWallLayerCreator(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public WhiteCrossFromBottomSideWallLayerCreator(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             Color centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
             this.setBottomSquareRelativeToFreeRow(centroidColorOfWhiteSquare);
             centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();
@@ -24,7 +25,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             {
                 EmptyPlacesCrossBottomFactory placesCrossBottomFactory = new EmptyPlacesCrossBottomFactory();
                 EmptyPlacesCrossBottomAbstractClass emptyPlacesCrossBottomImpl =
-                    placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare);
+                    placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, steps);
                 emptyPlacesCrossBottomImpl.create();
             }
 
@@ -32,7 +33,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             {
                 OnePlaceTakenCrossBottomFactory placeTakenCrossBottomFactory = new OnePlaceTakenCrossBottomFactory();
                 OnePlaceTakenCrossBottomAbstractClass onePlaceTakenCrossBottomAbstractClass =
-                    placeTakenCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare);
+                    placeTakenCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, steps);
                 onePlaceTakenCrossBottomAbstractClass.create();
             }
 
@@ -45,13 +46,13 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
                     )
                 {
                     twoPlacesCrossBottomImpl =
-                        placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, true);
+                        placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, true, steps);
 
                 }
                 else
                 {
                     twoPlacesCrossBottomImpl =
-                       placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, false);
+                       placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, false, steps);
                 }
 
                 if(twoPlacesCrossBottomImpl != null) twoPlacesCrossBottomImpl.create();
@@ -100,11 +101,13 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
                 if (this.isNotTakenWhiteWallByWhiteSquareOnCross(order[indexOfPrevCentroid]))
                 {
                     movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                     break;
                 }
                 else
                 {
                     movement = new Movement(MovementType.D, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
                
                 centroidColorOfWhiteSquare = this.findWhiteSquareCrossOnBottom();

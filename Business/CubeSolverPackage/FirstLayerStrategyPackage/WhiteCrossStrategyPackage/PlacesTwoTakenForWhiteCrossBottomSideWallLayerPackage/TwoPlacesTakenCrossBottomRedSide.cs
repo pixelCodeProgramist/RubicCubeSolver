@@ -8,12 +8,13 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlacesT
         private Dictionary<Color, Side> rubicCubeSides;
         private bool isStraightLine;
         private Color centroidColorOfWhiteSquare;
-
-        public TwoPlacesTakenCrossBottomRedSide(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor, bool isStraightLine)
+        private List<Step> steps;
+        public TwoPlacesTakenCrossBottomRedSide(Dictionary<Color, Side> rubicCubeSides, Color mainSideColor, bool isStraightLine, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
             this.isStraightLine = isStraightLine;
             this.centroidColorOfWhiteSquare = mainSideColor;
+            this.steps = steps;
         }
 
         public override void create()
@@ -26,8 +27,8 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlacesT
             Color colorOnYellowSide = getColorFromYellowSide(centroidColorOfWhiteSquare, rubicCubeSides);
 
             Movement movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
-
-            comleteSettingSquare(colorOnYellowSide, centroidColorOfWhiteSquare, rubicCubeSides, isStraightLine);
+            steps.Add(new Step(movement, rubicCubeSides));
+            comleteSettingSquare(colorOnYellowSide, centroidColorOfWhiteSquare, rubicCubeSides, isStraightLine, steps);
 
         }
     }

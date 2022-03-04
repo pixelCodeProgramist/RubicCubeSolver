@@ -9,13 +9,17 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
     {
         private Dictionary<Color, Side> rubicCubeSides;
 
+        private List<Step> steps;
+
         List<Color> order = new List<Color>() { Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE };
 
-        public void solve(Dictionary<Color, Side> rubicCubeSides)
+        public void solve(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             setCornerOnWhiteSide();
             setWhiteBottomCornersToWhiteSide();
+            setCorrectOrientationOnWhiteSide();
         }
 
         
@@ -44,21 +48,36 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                         if (movements < 0)
                         {
                             Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                            steps.Add(new Step(movement, rubicCubeSides));
                         }
                         else
                         {
                             Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                            steps.Add(new Step(movement, rubicCubeSides));
                         }
                     }
 
-                    whiteCornerMovementImpl = whiteCornerMovementFactory.create(firstCubeColor, rubicCubeSides);
+                    whiteCornerMovementImpl = whiteCornerMovementFactory.create(firstCubeColor, rubicCubeSides, steps);
                 }
                 else
                 {
-                    whiteCornerMovementImpl = whiteCornerMovementFactory.create(currentSiteColor1, rubicCubeSides);
+                    whiteCornerMovementImpl = whiteCornerMovementFactory.create(currentSiteColor1, rubicCubeSides, steps);
                 }
 
                 whiteCornerMovementImpl.move();
+            }
+        }
+
+        private void setCorrectOrientationOnWhiteSide()
+        {
+            while(true)
+            {
+                Color color = getCurrentWhiteCornerInGoodOrderColor();
+                if (color == Color.NONE) break;
+                WhiteCornerMovementFactory whiteCornerMovementFactory = new WhiteCornerMovementFactory();
+                IWhiteCornerMovement whiteCornerMovementImpl = whiteCornerMovementFactory.create(color, rubicCubeSides, steps);
+                whiteCornerMovementImpl.move();
+
             }
         }
 
@@ -96,8 +115,25 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 setWhiteBottomCornerToWhiteSide(orangeGreenYellowCubeOrangeSideColor, orangeGreenYellowCubeGreenSideColor, orangeGreenYellowCubeYellowSideColor,
                     Color.ORANGE, Color.GREEN);
             }
-            
+        }
 
+        private Color getCurrentWhiteCornerInGoodOrderColor()
+        {
+            
+            Color greenRedWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[0][2];
+
+            Color redBlueWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[2][2];
+
+            Color blueOrangeWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[2][0];
+
+            Color orangeGreenWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[0][0];
+
+            if (greenRedWhiteCubeWhiteSideColor != Color.WHITE) return Color.ORANGE;
+            if (redBlueWhiteCubeWhiteSideColor != Color.WHITE) return Color.GREEN;
+            if (blueOrangeWhiteCubeWhiteSideColor != Color.WHITE) return Color.RED;
+            if (orangeGreenWhiteCubeWhiteSideColor != Color.WHITE) return Color.BLUE;
+            
+            return Color.NONE;
         }
 
         private int getCurrentWhiteCornerNumber()
@@ -131,6 +167,8 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
         {
             return color1 == Color.WHITE || color2 == Color.WHITE || color3 == Color.WHITE;
         }
+
+        
         public void setCornerOnWhiteSide()
         {
             List<Color> potentialWhiteOrangeBlue = new List<Color>();
@@ -163,25 +201,25 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
 
             if(isCorrectWhiteOrangeBlueCorner && !checkGoodOrder(potentialWhiteOrangeBlue, Color.WHITE, Color.ORANGE, Color.BLUE))
             {
-                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.BLUE, rubicCubeSides);
+                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.BLUE, rubicCubeSides, steps);
                 whiteCornerMovementImpl.move();
             }
 
             if (isCorrectWhiteBlueRedCorner && !checkGoodOrder(potentialWhiteBlueRed, Color.WHITE, Color.BLUE, Color.RED))
             {
-                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.RED, rubicCubeSides);
+                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.RED, rubicCubeSides, steps);
                 whiteCornerMovementImpl.move();
             }
 
             if (isCorrectWhiteGreenOrangeCorner && !checkGoodOrder(potentialWhiteGreenOrange, Color.WHITE, Color.GREEN, Color.ORANGE))
             {
-                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.ORANGE, rubicCubeSides);
+                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.ORANGE, rubicCubeSides, steps);
                 whiteCornerMovementImpl.move();
             }
 
             if (isCorrectWhiteRedGreenCorner && !checkGoodOrder(potentialWhiteRedGreen, Color.WHITE, Color.RED, Color.GREEN))
             {
-                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.GREEN, rubicCubeSides);
+                whiteCornerMovementImpl = whiteCornerMovementFactory.create(Color.GREEN, rubicCubeSides, steps);
                 whiteCornerMovementImpl.move();
             }
 
@@ -205,8 +243,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 if (isCorrectWhiteOrangeBlueCorner) break;
 
                 Movement movement = new Movement(MovementType.L_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.L, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             while (true)
@@ -223,8 +264,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 if (isCorrectWhiteBlueRedCorner) break;
 
                 Movement movement = new Movement(MovementType.B_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.B, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             while (true)
@@ -241,8 +285,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 if (isCorrectWhiteGreenOrangeCorner) break;
 
                 Movement movement = new Movement(MovementType.F_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.F, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             while (true)
@@ -259,8 +306,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
                 if (isCorrectWhiteRedGreenCorner) break;
 
                 Movement movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
                 movement = new Movement(MovementType.R, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
         }
 

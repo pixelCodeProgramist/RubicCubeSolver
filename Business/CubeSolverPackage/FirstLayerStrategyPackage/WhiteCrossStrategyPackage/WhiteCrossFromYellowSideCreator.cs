@@ -8,10 +8,11 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
     class WhiteCrossFromYellowSideCreator
     {
         Dictionary<Color, Side> rubicCubeSides;
-
-        public WhiteCrossFromYellowSideCreator(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public WhiteCrossFromYellowSideCreator(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             this.create();
         }
 
@@ -46,6 +47,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             {
                 Movement movement = new Movement(MovementType.D, rubicCubeSides);
                 movement = new Movement(MovementType.D, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
             else
             {
@@ -55,10 +57,12 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
                 if (indexOfCentroid < indexOfColorOnOtherSide && !(indexOfCentroid == 0 && indexOfColorOnOtherSide == 3) || (indexOfCentroid == 3 && indexOfColorOnOtherSide == 0))
                 {
                     Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
                 else
                 {
                     Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
             }
 
@@ -94,24 +98,28 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             {
                 Movement movement = new Movement(MovementType.F, rubicCubeSides);
                 movement = new Movement(MovementType.F, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             if (newCentroidColor == Color.BLUE)
             {
                 Movement movement = new Movement(MovementType.B, rubicCubeSides);
                 movement = new Movement(MovementType.B, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             if (newCentroidColor == Color.RED)
             {
                 Movement movement = new Movement(MovementType.R, rubicCubeSides);
                 movement = new Movement(MovementType.R, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
 
             if (newCentroidColor == Color.ORANGE)
             {
                 Movement movement = new Movement(MovementType.L, rubicCubeSides);
                 movement = new Movement(MovementType.L, rubicCubeSides);
+                steps.Add(new Step(movement, rubicCubeSides));
             }
         }
     }

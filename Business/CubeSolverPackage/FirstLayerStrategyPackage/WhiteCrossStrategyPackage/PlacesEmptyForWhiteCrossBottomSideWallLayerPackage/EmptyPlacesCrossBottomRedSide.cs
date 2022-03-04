@@ -10,16 +10,20 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage.PlacesEm
     {
         private Dictionary<Color, Side> rubicCubeSides;
 
-        public EmptyPlacesCrossBottomRedSide(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public EmptyPlacesCrossBottomRedSide(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
         }
 
         public override void create()
         {
             Movement movement = new Movement(MovementType.R_PRIM, this.rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.B, this.rubicCubeSides);
-            rotateWhiteSideToOtherCentroids(rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
+            rotateWhiteSideToOtherCentroids(rubicCubeSides, steps);
         }
     }
 }

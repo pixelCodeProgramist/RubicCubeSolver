@@ -11,27 +11,26 @@ namespace RubicCube.Business.CubeSolverPackage
     class WhiteCrossStrategy : ICubeSolverStrategy
     {
         Dictionary<Color, Side> rubicCubeSides;
-        public void solve(Dictionary<Color, Side> rubicCubeSides)
+        List<Step> steps;
+        public void solve(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
-            Console.WriteLine("Initial");
-            Logger logger = new Logger(rubicCubeSides);
-            logger.display();
+            this.steps = steps;
             
-            WhiteCrossWhiteWallConfiguration whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides);
+            WhiteCrossWhiteWallConfiguration whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides, steps);
 
             while (true)
             {
-                WhiteCrossFromYellowSideCreator whiteCrossFromYellowSideCreator = new WhiteCrossFromYellowSideCreator(rubicCubeSides);
+                WhiteCrossFromYellowSideCreator whiteCrossFromYellowSideCreator = new WhiteCrossFromYellowSideCreator(rubicCubeSides, steps);
 
                 WhiteCrossFromBottomSideWallLayerCreator whiteCrossFromBottomSideWallLayerCreator =
-                    new WhiteCrossFromBottomSideWallLayerCreator(rubicCubeSides);
+                    new WhiteCrossFromBottomSideWallLayerCreator(rubicCubeSides, steps);
 
                 WhiteCrossFromMiddleSideWallLayerCreator whiteCrossFromMiddleSideWallLayerCreator =
-                    new WhiteCrossFromMiddleSideWallLayerCreator(rubicCubeSides);
+                    new WhiteCrossFromMiddleSideWallLayerCreator(rubicCubeSides, steps);
 
                 WhiteCrossFromThirdSideWallLayerCreator thirdSideWallLayerCreator = 
-                    new WhiteCrossFromThirdSideWallLayerCreator(rubicCubeSides);
+                    new WhiteCrossFromThirdSideWallLayerCreator(rubicCubeSides, steps);
 
                 if (
                      (rubicCubeSides[Color.WHITE].fields[0][1] == Color.WHITE) &&

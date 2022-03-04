@@ -9,9 +9,11 @@ namespace RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowC
     class YellowCrossStrategy : ICubeSolverStrategy
     {
         private Dictionary<Color, Side> rubicCubeSides;
-        public void solve(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public void solve(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             int numberThanLessOf2 = 0;
             
             
@@ -25,10 +27,10 @@ namespace RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowC
 
                 if (numberOfYellowSquare < 2)
                 {
-                    if ((numberThanLessOf2%4) == 0) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.BLUE, rubicCubeSides);
-                    if ((numberThanLessOf2%4) == 1) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.GREEN, rubicCubeSides);
-                    if ((numberThanLessOf2%4) == 2) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.ORANGE, rubicCubeSides);
-                    if ((numberThanLessOf2%4) == 3) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.RED, rubicCubeSides);
+                    if ((numberThanLessOf2%4) == 0) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.BLUE, rubicCubeSides, steps);
+                    if ((numberThanLessOf2%4) == 1) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.GREEN, rubicCubeSides, steps);
+                    if ((numberThanLessOf2%4) == 2) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.ORANGE, rubicCubeSides,steps);
+                    if ((numberThanLessOf2%4) == 3) yellowCrossColorImpl = yellowCrossColorFactory.create(Color.RED, rubicCubeSides, steps);
 
                     numberThanLessOf2++;
                 }
@@ -36,21 +38,21 @@ namespace RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowC
                 if(numberOfYellowSquare == 2 && isOppositeSameYellowColor())
                 {
                     if (rubicCubeSides[Color.YELLOW].fields[0][1] == Color.YELLOW) 
-                        yellowCrossColorImpl = yellowCrossColorFactory.create(Color.RED, rubicCubeSides);
+                        yellowCrossColorImpl = yellowCrossColorFactory.create(Color.RED, rubicCubeSides, steps);
                     else
-                        yellowCrossColorImpl = yellowCrossColorFactory.create(Color.GREEN, rubicCubeSides);
+                        yellowCrossColorImpl = yellowCrossColorFactory.create(Color.GREEN, rubicCubeSides, steps);
                 }
 
                 if (numberOfYellowSquare == 2 && !isOppositeSameYellowColor())
                 {
                     Color relativeColor = getRelativeColor();
-                    yellowCrossColorImpl = yellowCrossColorFactory.create(relativeColor, rubicCubeSides);
+                    yellowCrossColorImpl = yellowCrossColorFactory.create(relativeColor, rubicCubeSides, steps);
                 }
 
                 if (numberOfYellowSquare == 3)
                 {
                     Color relativeColor = findNotYellowSquare();
-                    yellowCrossColorImpl = yellowCrossColorFactory.create(relativeColor, rubicCubeSides);
+                    yellowCrossColorImpl = yellowCrossColorFactory.create(relativeColor, rubicCubeSides, steps);
                 }
 
                 yellowCrossColorImpl.move();

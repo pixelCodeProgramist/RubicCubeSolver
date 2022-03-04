@@ -10,6 +10,7 @@ namespace RubicCube.Models
 {
     class Movement
     {
+        static int iter = 0;
         public MovementType movementType { get; set; }
         public Dictionary<Color, Side> rubicCubeSides { get; set; }
         public bool isReverse { get; set; }
@@ -24,8 +25,9 @@ namespace RubicCube.Models
                 .First().Name;
             this.isReverse = type.Contains("_PRIM");
             
-            this.updateCube();
-            Console.WriteLine("++++++++++++++++ " + type + "++++++++++++++");
+            if(movementType != MovementType.NONE) this.updateCube();
+            iter += 1;
+            Console.WriteLine(iter + "++++++++++++++++ " + type + "++++++++++++++");
             Logger logger = new Logger(rubicCubeSides);
             logger.display();
         }

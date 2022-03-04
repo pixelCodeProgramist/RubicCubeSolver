@@ -7,23 +7,23 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
 {
     class WhiteCornerMovementFactory
     {
-        public IWhiteCornerMovement create(Color color, Dictionary<Color, Side> rubicCubeSides)
+        public IWhiteCornerMovement create(Color color, Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             IWhiteCornerMovement whiteCornerMovementImpl = null;
             
             switch(color)
             {
                 case Color.BLUE:
-                    whiteCornerMovementImpl = new WhiteCornerMovementFromBlue(rubicCubeSides);
+                    whiteCornerMovementImpl = new WhiteCornerMovementFromBlue(rubicCubeSides, steps);
                     break;
                 case Color.RED:
-                    whiteCornerMovementImpl = new WhiteCornerMovementFromRed(rubicCubeSides);
+                    whiteCornerMovementImpl = new WhiteCornerMovementFromRed(rubicCubeSides, steps);
                     break;
                 case Color.ORANGE:
-                    whiteCornerMovementImpl = new WhiteCornerMovementFromOrange(rubicCubeSides);
+                    whiteCornerMovementImpl = new WhiteCornerMovementFromOrange(rubicCubeSides, steps);
                     break;
                 case Color.GREEN:
-                    whiteCornerMovementImpl = new WhiteCornerMovementFromGreen(rubicCubeSides);
+                    whiteCornerMovementImpl = new WhiteCornerMovementFromGreen(rubicCubeSides, steps);
                     break;
                 default:
                     break;

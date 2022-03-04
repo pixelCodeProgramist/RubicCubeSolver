@@ -9,7 +9,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage.PlacesEm
     {
         public abstract void create();
 
-        protected void rotateWhiteSideToOtherCentroids(Dictionary<Color, Side> rubicCubeSides)
+        protected void rotateWhiteSideToOtherCentroids(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             Color possibleWhiteSquareBlueDirectionColor = rubicCubeSides[Color.WHITE].fields[0][1];
             Color possibleWhiteSquareOrangeDirectionColor = rubicCubeSides[Color.WHITE].fields[1][0];
@@ -35,6 +35,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage.PlacesEm
                 for (int i = 0; i < moves; i++)
                 {
                     Movement movement = new Movement(MovementType.U_PRIM, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
             }
             else
@@ -42,6 +43,7 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage.PlacesEm
                 for (int i = 0; i < moves; i++)
                 {
                     Movement movement = new Movement(MovementType.U, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
             }
         }

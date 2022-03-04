@@ -8,22 +8,31 @@ namespace RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage.Second
     class RedSideSecondLayerRight : ISecondLayerForFactory
     {
         private Dictionary<Color, Side> rubicCubeSides;
-
-        public RedSideSecondLayerRight(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        public RedSideSecondLayerRight(Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
         }
 
         public void solve()
         {
             Movement movement = new Movement(MovementType.D, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.F, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.F_PRIM, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.D, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
             movement = new Movement(MovementType.R, rubicCubeSides);
+            steps.Add(new Step(movement, rubicCubeSides));
         }
     }
 }

@@ -7,22 +7,22 @@ namespace RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage.Second
 {
     class RightFactory : SecondLayerFactory
     {
-        public override ISecondLayerForFactory getAlgorithm(Color colorType, Dictionary<Color, Side> rubicCubeSides)
+        public override ISecondLayerForFactory getAlgorithm(Color colorType, Dictionary<Color, Side> rubicCubeSides, List<Step> steps)
         {
             ISecondLayerForFactory secondLayerForFactory = null;
             switch(colorType)
             {
                 case Color.GREEN:
-                    secondLayerForFactory = new GreenSideSecondLayerRight(rubicCubeSides);
+                    secondLayerForFactory = new GreenSideSecondLayerRight(rubicCubeSides, steps);
                     break;
                 case Color.ORANGE:
-                    secondLayerForFactory = new OrangeSideSecondLayerRight(rubicCubeSides);
+                    secondLayerForFactory = new OrangeSideSecondLayerRight(rubicCubeSides, steps);
                     break;
                 case Color.RED:
-                    secondLayerForFactory = new RedSideSecondLayerRight(rubicCubeSides);
+                    secondLayerForFactory = new RedSideSecondLayerRight(rubicCubeSides, steps);
                     break;
                 case Color.BLUE:
-                    secondLayerForFactory = new BlueSideSecondLayerRight(rubicCubeSides);
+                    secondLayerForFactory = new BlueSideSecondLayerRight(rubicCubeSides, steps);
                     break;
                 default:
                     break;

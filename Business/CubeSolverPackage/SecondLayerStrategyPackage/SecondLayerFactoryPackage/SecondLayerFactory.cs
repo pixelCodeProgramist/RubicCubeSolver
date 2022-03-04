@@ -7,7 +7,7 @@ namespace RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage.Second
 {
     abstract class SecondLayerFactory
     {
-        public abstract ISecondLayerForFactory getAlgorithm(Color colorType, Dictionary<Color, Side> rubicCubeSides);
+        public abstract ISecondLayerForFactory getAlgorithm(Color colorType, Dictionary<Color, Side> rubicCubeSides, List<Step> steps);
     }
 
 }

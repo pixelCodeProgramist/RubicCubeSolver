@@ -11,49 +11,54 @@ namespace RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage
     {
         private Dictionary<Color, Side> rubicCubeSides;
         private SecondLayerFactory abstractFactory;
-        public void solve(Dictionary<Color, Side> rubicCubeSides)
+        private List<Step> steps;
+        private List<Color> order = new List<Color>() { Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE };
+        public void solve(Dictionary<Color, Side> rubicCubeSides, List<Step> steps) 
         {
             this.rubicCubeSides = rubicCubeSides;
+            this.steps = steps;
             this.removeWrongCubes();
             this.setCubesInCorrectPosition();
         }
 
         private void setCubeInCorrectPosition(Color currentCentroidColor, Color futureCentroidColor)
         {
-            List<Color> order = new List<Color>() { Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE };
-
-            int currentSideIndex = order.FindIndex(color => color == currentCentroidColor);
-            int futureSideIndex = order.FindIndex(color => color == futureCentroidColor);
-            int movements = futureSideIndex - currentSideIndex;
-            if (movements == -3) movements = 1;
-            if (movements == 3) movements = -1;
-
-            for (int i = 0; i < Math.Abs(movements); i++)
+            if(futureCentroidColor!=Color.YELLOW && futureCentroidColor != Color.WHITE && futureCentroidColor != Color.NONE)
             {
-                if (movements < 0)
+                int currentSideIndex = order.FindIndex(color => color == currentCentroidColor);
+                int futureSideIndex = order.FindIndex(color => color == futureCentroidColor);
+                int movements = futureSideIndex - currentSideIndex;
+                if (movements == -3) movements = 1;
+                if (movements == 3) movements = -1;
+
+                for (int i = 0; i < Math.Abs(movements); i++)
                 {
-                    Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                    if (movements < 0)
+                    {
+                        Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                    else
+                    {
+                        Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
                 }
-                else
-                {
-                    Movement movement = new Movement(MovementType.D, rubicCubeSides);
-                }
+
+                Color yellowSideSquareColor = getColorFromYellowSide(futureCentroidColor);
+
+                int indexOfYellowSideSquareColor = order.FindIndex(color => color == yellowSideSquareColor);
+                int position = indexOfYellowSideSquareColor - futureSideIndex;
+                if (position == -3) position = 1;
+                if (position == 3) position = -1;
+
+                if (position < 0) abstractFactory = SecondLayerFactoryProvider.getFactory(SecondLayerFactoryMode.Right);
+                if (position > 0) abstractFactory = SecondLayerFactoryProvider.getFactory(SecondLayerFactoryMode.Left);
+
+
+
+                if (position != 0) abstractFactory.getAlgorithm(futureCentroidColor, rubicCubeSides, steps).solve();
             }
-
-            Color yellowSideSquareColor = getColorFromYellowSide(futureCentroidColor);
-
-            int indexOfYellowSideSquareColor = order.FindIndex(color => color == yellowSideSquareColor);
-            int position = indexOfYellowSideSquareColor - futureSideIndex;
-            if (position == -3) position = 1;
-            if (position == 3) position = -1;
-
-            if(position < 0) abstractFactory = SecondLayerFactoryProvider.getFactory(SecondLayerFactoryMode.Right);
-            if(position > 0) abstractFactory = SecondLayerFactoryProvider.getFactory(SecondLayerFactoryMode.Left);
-
-
-
-            if (position != 0) abstractFactory.getAlgorithm(futureCentroidColor, rubicCubeSides).solve();
-
         }
 
         private Color getColorFromYellowSide(Color centroidColor)
@@ -101,10 +106,11 @@ namespace RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage
                 {
                     if (isYellowColorInMember(mainColor, rowOnYellowSide, columnOnYellowSide)) break;
                     Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
 
                 abstractFactory = SecondLayerFactoryProvider.getFactory(SecondLayerFactoryMode.Left);
-                abstractFactory.getAlgorithm(mainColor, rubicCubeSides).solve();
+                abstractFactory.getAlgorithm(mainColor, rubicCubeSides, steps).solve();
             }
         }
 
