@@ -99,37 +99,50 @@ namespace RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowC
                 new Color[] { rubicCubeSides[Color.BLUE].fields[2][1], rubicCubeSides[Color.ORANGE].fields[2][1] }
             };
 
-            int indexInOrder = -1;
-            int indexInListOfRubicCombination = -1;
-            for (int i = 0; i < listOfRubicCombination.Count; i++)
+            while(true)
             {
-                int index = containColorsInListWithEqualsLength(listOfOrderCombinantion, listOfRubicCombination[i]);
-                if (index >= 0)
+                if (countCorrectSquare() == 2) break;
+                int indexInOrder = -1;
+                int indexInListOfRubicCombination = -1;
+                for (int i = 0; i < listOfRubicCombination.Count; i++)
                 {
-                    indexInListOfRubicCombination = i;
-                    indexInOrder = index;
+                    int index = containColorsInListWithEqualsLength(listOfOrderCombinantion, listOfRubicCombination[i]);
+                    if (index >= 0)
+                    {
+                        indexInListOfRubicCombination = i;
+                        indexInOrder = index;
+                        break;
+                    }
+                }
+
+                if (indexInOrder > -1 && indexInListOfRubicCombination > -1)
+                {
+                    int movements = indexInOrder - indexInListOfRubicCombination;
+                    if (movements == -3) movements = 1;
+                    if (movements == 3) movements = -1;
+                    for (int i = 0; i < Math.Abs(movements); i++)
+                    {
+                        if (movements < 0)
+                        {
+                            Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                            steps.Add(new Step(movement, rubicCubeSides));
+                        }
+                        else
+                        {
+                            Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                            steps.Add(new Step(movement, rubicCubeSides));
+                        }
+                    }
+
                     break;
+                } else
+                {
+                    Movement movement = new Movement(MovementType.D, rubicCubeSides);
+                    steps.Add(new Step(movement, rubicCubeSides));
                 }
             }
 
-            if(indexInOrder>-1 && indexInListOfRubicCombination>-1)
-            {
-                int movements = indexInOrder - indexInListOfRubicCombination;
-                if (movements == -3) movements = 1;
-                if (movements == 3) movements = -1;
-                for(int i=0; i< Math.Abs(movements); i++)
-                {
-                    if(movements < 0)
-                    {
-                        Movement movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
-                        steps.Add(new Step(movement, rubicCubeSides));
-                    } else
-                    {
-                        Movement movement = new Movement(MovementType.D, rubicCubeSides);
-                        steps.Add(new Step(movement, rubicCubeSides));
-                    }
-                }
-            }
+            
         }
 
         public int containColorsInListWithEqualsLength(List<Color[]> listOfOrderCombinantion, Color[] listOfRubicCombination)
@@ -147,7 +160,7 @@ namespace RubicCube.Business.CubeSolverPackage.ThirdLayerStrategyPackage.YellowC
             return -1;
         }
         
-        public int countCorrectSquare()
+        private int countCorrectSquare()
         {
             int number = 0;
 

@@ -22,18 +22,23 @@ namespace RubicCube.Business.CubeSolverPackage
             while (true)
             {
                 WhiteCrossFromYellowSideCreator whiteCrossFromYellowSideCreator = new WhiteCrossFromYellowSideCreator(rubicCubeSides, steps);
-
-                WhiteCrossFromMiddleSideWallNonWhiteAndYellowCreator whiteCrossFromMiddleSideWallNonWhiteAndYellow =
-                    new WhiteCrossFromMiddleSideWallNonWhiteAndYellowCreator(rubicCubeSides, steps);
+                whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides, steps);
 
                 WhiteCrossFromBottomSideWallLayerCreator whiteCrossFromBottomSideWallLayerCreator =
                     new WhiteCrossFromBottomSideWallLayerCreator(rubicCubeSides, steps);
+                whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides, steps);
 
                 WhiteCrossFromMiddleSideWallLayerCreator whiteCrossFromMiddleSideWallLayerCreator =
                     new WhiteCrossFromMiddleSideWallLayerCreator(rubicCubeSides, steps);
+                whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides, steps);
+
+                WhiteCrossFromMiddleSideWallNonWhiteAndYellowCreator whiteCrossFromMiddleSideWallNonWhiteAndYellow =
+                    new WhiteCrossFromMiddleSideWallNonWhiteAndYellowCreator(rubicCubeSides, steps);
+                whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides, steps);
 
                 WhiteCrossFromThirdSideWallLayerCreator thirdSideWallLayerCreator = 
                     new WhiteCrossFromThirdSideWallLayerCreator(rubicCubeSides, steps);
+                whiteCrossWhiteWallCofiguration = new WhiteCrossWhiteWallConfiguration(rubicCubeSides, steps);
 
                 if (
                      (rubicCubeSides[Color.WHITE].fields[0][1] == Color.WHITE) &&

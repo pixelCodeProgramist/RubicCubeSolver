@@ -33,42 +33,89 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
                 
                 if (isWhiteSquareInOrangeGreenSideCube)
                 {
-                    Movement movement = new Movement(MovementType.F_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.F, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
+                    bool greenSideColor = rubicCubeSides[Color.GREEN].fields[1][0] == Color.GREEN;
+                    if(greenSideColor)
+                    {
+                        Movement movement = new Movement(MovementType.F, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    } else
+                    {
+                        Movement movement = new Movement(MovementType.F_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.F, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                    
                 }
 
                 if (isWhiteSquareInGreenRedSideCube)
                 {
-                    Movement movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.R, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
+                    bool redSideColor = rubicCubeSides[Color.RED].fields[1][0] == Color.GREEN;
+                    if (redSideColor)
+                    {
+                        Movement movement = new Movement(MovementType.R, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                    else
+                    {
+                        Movement movement = new Movement(MovementType.R_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.R, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                    
                 }
 
                 if (isWhiteSquareInRedBlueSideCube)
                 {
-                    Movement movement = new Movement(MovementType.B_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.B, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
+                    bool blueSideColor = rubicCubeSides[Color.BLUE].fields[1][0] == Color.GREEN;
+                    if (blueSideColor)
+                    {
+                        Movement movement = new Movement(MovementType.B, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                    else
+                    {
+                        Movement movement = new Movement(MovementType.B_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.B, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                   
                 }
 
                 if (isWhiteSquareInBlueOrangeSideCube)
                 {
-                    Movement movement = new Movement(MovementType.L_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
-                    movement = new Movement(MovementType.L, rubicCubeSides);
-                    steps.Add(new Step(movement, rubicCubeSides));
+                    bool orangeSideColor = rubicCubeSides[Color.ORANGE].fields[1][0] == Color.GREEN;
+                    if (orangeSideColor)
+                    {
+                        Movement movement = new Movement(MovementType.L, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                    else
+                    {
+                        Movement movement = new Movement(MovementType.L_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D_PRIM, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.L, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                        movement = new Movement(MovementType.D, rubicCubeSides);
+                        steps.Add(new Step(movement, rubicCubeSides));
+                    }
+                   
                 }
             }
             

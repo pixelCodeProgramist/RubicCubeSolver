@@ -1,4 +1,5 @@
-﻿using RubicCube.Models;
+﻿using RubicCube.Business.CubeSolverPackage.FirstLayerStrategyPackage.WhiteCrossStrategyPackage.WhiteCrossFromUpSideWallNonWhiteAndYellowPackage;
+using RubicCube.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,32 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage
             this.steps = steps;
             this.updateCrossWhiteSideSquareColors();
             this.moveWrongWhiteSquareFromWhiteSide();
+            this.moveWrongWhiteSquareFromNonWhiteSide();
+        }
+
+        private void moveWrongWhiteSquareFromNonWhiteSide()
+        {
+            while(true)
+            {
+                Color color = getColorFromNonWhiteSide();
+                
+                if (color == Color.NONE) break;
+
+                WhiteCrossFromUpSideWallNonWhiteAndYellowFactory factory = new WhiteCrossFromUpSideWallNonWhiteAndYellowFactory();
+                IWhiteCrossFromUpSideWallNonWhiteAndYellow whiteCrossFromUpSideWallNonWhiteAndYellowImpl = factory.create(color, rubicCubeSides, steps);
+                whiteCrossFromUpSideWallNonWhiteAndYellowImpl.move();
+            }
+           
+            
+        }
+
+        private Color getColorFromNonWhiteSide()
+        {
+            if (rubicCubeSides[Color.GREEN].fields[0][1] == Color.WHITE) return Color.GREEN;
+            if (rubicCubeSides[Color.ORANGE].fields[0][1] == Color.WHITE) return Color.ORANGE;
+            if (rubicCubeSides[Color.RED].fields[0][1] == Color.WHITE) return Color.RED;
+            if (rubicCubeSides[Color.BLUE].fields[0][1] == Color.WHITE) return Color.BLUE;
+            return Color.NONE;
         }
 
         private void updateCrossWhiteSideSquareColors()

@@ -21,42 +21,52 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPakage
             this.setBottomSquareRelativeToFreeRow(ref centroidColorOfWhiteSquare);
             List<Color> currentSquaresOnWhiteSide = getSquaresOnCross();
             int numberOfTakenPlaces = currentSquaresOnWhiteSide.FindAll(e => e == Color.WHITE).Count;
-            if (numberOfTakenPlaces == 0)
+            if(centroidColorOfWhiteSquare!= Color.NONE)
             {
-                EmptyPlacesCrossBottomFactory placesCrossBottomFactory = new EmptyPlacesCrossBottomFactory();
-                EmptyPlacesCrossBottomAbstractClass emptyPlacesCrossBottomImpl =
-                    placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, steps);
-                emptyPlacesCrossBottomImpl.create();
-            }
-
-            if (numberOfTakenPlaces == 1)
-            {
-                OnePlaceTakenCrossBottomFactory placeTakenCrossBottomFactory = new OnePlaceTakenCrossBottomFactory();
-                OnePlaceTakenCrossBottomAbstractClass onePlaceTakenCrossBottomAbstractClass =
-                    placeTakenCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, steps);
-                onePlaceTakenCrossBottomAbstractClass.create();
-            }
-
-            if (currentSquaresOnWhiteSide.FindAll(e => e == Color.WHITE).Count >= 2)
-            {
-                TwoPlacesTakenCrossBottomFactory placesCrossBottomFactory = new TwoPlacesTakenCrossBottomFactory();
-                TwoPlacesTakenCrossBottomAbstractClass twoPlacesCrossBottomImpl = null;
-                if (currentSquaresOnWhiteSide[0] == Color.WHITE && currentSquaresOnWhiteSide[3] == Color.WHITE ||
-                    currentSquaresOnWhiteSide[1] == Color.WHITE && currentSquaresOnWhiteSide[2] == Color.WHITE
-                    )
+                if (numberOfTakenPlaces == 0)
                 {
-                    twoPlacesCrossBottomImpl =
-                        placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, true, steps);
-
-                }
-                else
-                {
-                    twoPlacesCrossBottomImpl =
-                       placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, false, steps);
+                    EmptyPlacesCrossBottomFactory placesCrossBottomFactory = new EmptyPlacesCrossBottomFactory();
+                    EmptyPlacesCrossBottomAbstractClass emptyPlacesCrossBottomImpl =
+                        placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, steps);
+                    emptyPlacesCrossBottomImpl.create();
                 }
 
-                if(twoPlacesCrossBottomImpl != null) twoPlacesCrossBottomImpl.create();
+                if (numberOfTakenPlaces == 1)
+                {
+                    OnePlaceTakenCrossBottomFactory placeTakenCrossBottomFactory = new OnePlaceTakenCrossBottomFactory();
+                    OnePlaceTakenCrossBottomAbstractClass onePlaceTakenCrossBottomAbstractClass =
+                        placeTakenCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, steps);
+                    Color returendColor = onePlaceTakenCrossBottomAbstractClass.create();
+                    if (returendColor != centroidColorOfWhiteSquare)
+                    {
+                        onePlaceTakenCrossBottomAbstractClass =
+                        placeTakenCrossBottomFactory.createMovementUpdater(rubicCubeSides, returendColor, steps);
+                        onePlaceTakenCrossBottomAbstractClass.create();
+                    }
+                }
+
+                if (currentSquaresOnWhiteSide.FindAll(e => e == Color.WHITE).Count >= 2)
+                {
+                    TwoPlacesTakenCrossBottomFactory placesCrossBottomFactory = new TwoPlacesTakenCrossBottomFactory();
+                    TwoPlacesTakenCrossBottomAbstractClass twoPlacesCrossBottomImpl = null;
+                    if (currentSquaresOnWhiteSide[0] == Color.WHITE && currentSquaresOnWhiteSide[3] == Color.WHITE ||
+                        currentSquaresOnWhiteSide[1] == Color.WHITE && currentSquaresOnWhiteSide[2] == Color.WHITE
+                        )
+                    {
+                        twoPlacesCrossBottomImpl =
+                            placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, true, steps);
+
+                    }
+                    else
+                    {
+                        twoPlacesCrossBottomImpl =
+                           placesCrossBottomFactory.createMovementUpdater(rubicCubeSides, centroidColorOfWhiteSquare, false, steps);
+                    }
+
+                    if (twoPlacesCrossBottomImpl != null) twoPlacesCrossBottomImpl.create();
+                }
             }
+            
         }
 
         public bool isNotTakenWhiteWallByWhiteSquareOnCross(Color centroidColorOfWhiteSquare)

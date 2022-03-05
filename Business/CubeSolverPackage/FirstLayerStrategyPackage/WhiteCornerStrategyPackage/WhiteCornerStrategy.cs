@@ -120,18 +120,18 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCornerStrategyPackage
         private Color getCurrentWhiteCornerInGoodOrderColor()
         {
             
-            Color greenRedWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[0][2];
+            Color redBlueWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[0][2];
 
-            Color redBlueWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[2][2];
+            Color redGreenWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[2][2];
 
-            Color blueOrangeWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[2][0];
+            Color greenOrangeWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[2][0];
 
-            Color orangeGreenWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[0][0];
+            Color orangeBlueWhiteCubeWhiteSideColor = rubicCubeSides[Color.WHITE].fields[0][0];
 
-            if (greenRedWhiteCubeWhiteSideColor != Color.WHITE) return Color.ORANGE;
-            if (redBlueWhiteCubeWhiteSideColor != Color.WHITE) return Color.GREEN;
-            if (blueOrangeWhiteCubeWhiteSideColor != Color.WHITE) return Color.RED;
-            if (orangeGreenWhiteCubeWhiteSideColor != Color.WHITE) return Color.BLUE;
+            if (redBlueWhiteCubeWhiteSideColor != Color.WHITE) return Color.RED;
+            if (redGreenWhiteCubeWhiteSideColor != Color.WHITE) return Color.GREEN;
+            if (greenOrangeWhiteCubeWhiteSideColor != Color.WHITE) return Color.ORANGE;
+            if (orangeBlueWhiteCubeWhiteSideColor != Color.WHITE) return Color.BLUE;
             
             return Color.NONE;
         }

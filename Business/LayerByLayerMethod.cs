@@ -19,7 +19,7 @@ namespace RubicCube.Business
         public void solve()
         {
             PreparationCube preparationCube = new PreparationCube();
-            preparationCube.shuffle();
+            //preparationCube.shuffle();
             Dictionary<Color, Side> sides = preparationCube.sides;
             this.steps = new List<Step>() { new Step(preparationCube.copySides()) };
             ICubeSolverStrategy cubeSolverStrategy = new WhiteCrossStrategy();

@@ -7,19 +7,20 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
 {
     abstract class OnePlaceTakenCrossBottomAbstractClass
     {
-        public abstract void create();
+        public abstract Color create();
 
-        protected void rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(Dictionary<Color, Side> rubicCubeSides, Color centroidColor, List<Step> steps)
+        protected void rotateLastLayerRelativeCentroidAndYellowNaighbourSquare(Dictionary<Color, Side> rubicCubeSides, ref Color centroidColor, List<Step> steps)
         {
             Color squareYellowSideColor = getColorSquareFromYellowSide(centroidColor, rubicCubeSides);
-
+            
             List<Color> order = new List<Color>() { Color.ORANGE, Color.GREEN, Color.RED, Color.BLUE };
             
             if(centroidColor != squareYellowSideColor)
             {
                 while (true)
                 {
-                    int indexOfPrevCentroid = order.FindIndex(color => color == centroidColor) - 1;
+                    Color centroidColorCopy = centroidColor;
+                    int indexOfPrevCentroid = order.FindIndex(color => color == centroidColorCopy) - 1;
                     if (indexOfPrevCentroid < 0) indexOfPrevCentroid = order.Count - 1;
                     Color prevCentroidColor = order[indexOfPrevCentroid];
                     if (squareYellowSideColor == prevCentroidColor)
@@ -32,6 +33,8 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
                     {
                         Movement movement = new Movement(MovementType.D, rubicCubeSides);
                         steps.Add(new Step(movement, rubicCubeSides));
+                        centroidColor = order[(indexOfPrevCentroid + 2) % order.Count];
+                        if (centroidColor == squareYellowSideColor) break;
                     }
 
                 }

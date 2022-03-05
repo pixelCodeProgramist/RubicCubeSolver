@@ -13,16 +13,16 @@ namespace RubicCube.Business.CubeSolverPackage.WhiteCrossStrategyPackage.PlaceOn
             switch (mainSideColor)
             {
                 case Color.GREEN:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomGreenSide(rubicCubeSides, mainSideColor, steps);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomGreenSide(rubicCubeSides, ref mainSideColor, steps);
                     break;
                 case Color.RED:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomRedSide(rubicCubeSides, mainSideColor, steps);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomRedSide(rubicCubeSides,ref mainSideColor, steps);
                     break;
                 case Color.BLUE:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomBlueSide(rubicCubeSides, mainSideColor, steps);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomBlueSide(rubicCubeSides,ref mainSideColor, steps);
                     break;
                 case Color.ORANGE:
-                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomOrangeSide(rubicCubeSides, mainSideColor, steps);
+                    onePlaceTakenCrossBottomAbstractClass = new OnePlaceTakenCrossBottomOrangeSide(rubicCubeSides,ref mainSideColor, steps);
                     break;
                 default:
                     break;

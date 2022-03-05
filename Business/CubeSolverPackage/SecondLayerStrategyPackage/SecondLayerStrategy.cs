@@ -23,7 +23,9 @@ namespace RubicCube.Business.CubeSolverPackage.SecondLayerStrategyPackage
 
         private void setCubeInCorrectPosition(Color currentCentroidColor, Color futureCentroidColor)
         {
-            if(futureCentroidColor!=Color.YELLOW && futureCentroidColor != Color.WHITE && futureCentroidColor != Color.NONE)
+            Color currentYellowSideSquareColor = getColorFromYellowSide(currentCentroidColor);
+            if (futureCentroidColor!=Color.YELLOW && futureCentroidColor != Color.WHITE && futureCentroidColor != Color.NONE &&
+                currentYellowSideSquareColor != Color.YELLOW && currentYellowSideSquareColor != Color.WHITE && currentYellowSideSquareColor != Color.NONE)
             {
                 int currentSideIndex = order.FindIndex(color => color == currentCentroidColor);
                 int futureSideIndex = order.FindIndex(color => color == futureCentroidColor);
